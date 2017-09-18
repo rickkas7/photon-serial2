@@ -29,6 +29,8 @@ Here is is after soldering the leads in place:
 
 I used epoxy to glue the headers in place. This was more difficult and messier than I anticipated.
 
+There is a much better way of doing this at the end of the document!
+
 ## Testing out the LED
 
 One advantage of making all three connections is that you can verify your wiring by using an external common anode RGB LED. I used [this one from Adafruit](https://www.adafruit.com/products/159) but any common anode LED should work.
@@ -70,7 +72,21 @@ Here's the Photon with the resistors removed:
 
 It took a few tries, but you can tell you did it successfully when you boot up and the status LED doesn't light up. 
 
-## Using the alternate status LED
+## Using the alternate status LED (0.6.1 and later)
+
+This should set the alternate status LED to work automatically from the boot loader with 0.6.1 and later. 
+
+```
+STARTUP(RGB.mirrorTo(D2, D3, A4, true, true));
+
+void setup() {
+}
+
+void loop() {
+}
+```
+
+## Using the alternate status LED (0.6.0 and earlier)
 
 To use the status LED on different pins, you must choose other pins that have PWM support. I selected:
 
@@ -299,3 +315,12 @@ Sent to other Photon: 5
 Received from other Photon: 6
 ```
 
+## Better way of making bottom connections
+
+There is a much better way of making the bottom connections, as well. Using the "no headers" version of the Photon, it can be surface mounted on a printed circuit board:
+
+![SMT Photon](12smt.jpg)
+
+This is just a test board that exposes all of the bottom connections as well as the standard Photon pins. This works best if you have a reflow oven to bake the Photon onto the circuit board, as it's impossible to hand-solder to the bottom pads in the SMT configuration.
+
+The standard Eagle footprints for the SMT version of the Electron include the bottom pads. The schematic and board file for this board are included in the "eagle" directory.
